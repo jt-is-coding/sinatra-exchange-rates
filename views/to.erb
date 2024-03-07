@@ -1,4 +1,4 @@
-<h1>Curreny pairs</h1>
+<h1>Convert <%= @first_currency %> to <%= @second_currency %></h1>
 
 <% exchange_rates_key = ENV.fetch("EXCHANGE_RATES_KEY") %>
 <% exchange_url = "http://api.exchangerate.host/list?access_key=#{exchange_rates_key}" %>
@@ -6,8 +6,6 @@
 <% parsed_response = JSON.parse(raw_response) %>
 <% currency = parsed_response.fetch("currencies") %>
 <% currency_keys = currency.keys %>
-<% currency_keys.each do |list| %>
-  <ul>
-    <li><a href="/<%= list %>">Convert 1 <%= list %> to...</a></li>
-  </ul>
-<% end %>
+<%= parsed_response %>
+
+<a href="/<%= @first_currency%>">Go back</a>
