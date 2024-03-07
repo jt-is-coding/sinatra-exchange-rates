@@ -1,11 +1,14 @@
 <h1>Convert <%= @first_currency %> to <%= @second_currency %></h1>
 
 <% exchange_rates_key = ENV.fetch("EXCHANGE_RATES_KEY") %>
-<% exchange_url = "http://api.exchangerate.host/list?access_key=#{exchange_rates_key}" %>
+<% exchange_url = "http://api.exchangerate.host/convert?from=#{@first_currency}&to=#{@second_currency}&amount=1&access_key=#{exchange_rates_key}" %>
 <% raw_response = HTTP.get(exchange_url) %>
 <% parsed_response = JSON.parse(raw_response) %>
-<% currency = parsed_response.fetch("currencies") %>
-<% currency_keys = currency.keys %>
-<%= parsed_response %>
+<% #currency = parsed_response.fetch("currencies") %>
+<% #currency_keys = currency.keys %>
+<% result = parsed_response.fetch("result") %>
+<div>
+  <p>1 <%= @first_currency %> equals <%= result %> <%= @second_currency %></p>
+</div>
 
 <a href="/<%= @first_currency%>">Go back</a>
